@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { Route, Router } from 'react-router';
+
+import Layout from './components/layout/layout';
+import CostView from './components/cost/costview'
+
 import './App.css';
+import { routerActions } from 'connected-react-router';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Layout>
+      <Route path='/:orgId/cost/:costId?' component={CostView}></Route>
+    </Layout>
+);
 }
 
 export default App;
