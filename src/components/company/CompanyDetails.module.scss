@@ -1,0 +1,74 @@
+@import '../styles/Styles.variables.scss';
+
+.companyDetailsContainer
+{
+    min-height: $companyDetailsContainerHeight;
+    width: $companyDetailsContainerWidth;
+    background-color: white;
+    top:0;
+    box-shadow: 0px 0px 12px rgba(196, 196, 196, 0.24);
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+    .companyDetailsContainerImage {
+        width: 190px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .companyDetailsInfo {
+        width: 460px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+
+        .companyDetailsInfoHeader { 
+            font-size: 24px; 
+            height: 40px;
+            line-height: 32px; 
+            font-weight: bold; 
+            width: 100%;
+        }
+
+        .companyDetailsWeb {
+            height: 37px;
+            a {
+                font-size: 16px;
+                font-weight: 600;
+                color: $activeLinkColor;
+                text-decoration: underline;
+                
+            };
+        }
+
+        .companyDetailsAddress {
+            height: 21px;
+            color: #BABABA;
+            font-weight: 600;
+        }
+    }
+
+    .companyDetailsContact {
+        display: flex;
+        height: 100%;
+        width: 285px;
+        justify-content: left;
+        align-items: center;
+
+        .contactItemRow { height: 38px;}
+
+        .contactName { color: #757575; vertical-align: super; font-weight: 600;}
+        .contactPhone { color: #BABABA; vertical-align: super; font-weight: 600; }
+        .contactEmail { color: #BABABA; vertical-align: super; font-weight: 600; }
+        .contactEmail a { color: #BABABA;}
+
+        i { color: #6D788D; margin-right: 15px}
+    }
+
+
+}

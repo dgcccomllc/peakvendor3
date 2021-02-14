@@ -1,0 +1,20 @@
+@import '../styles/Styles.variables.scss';
+
+.header {
+    height: $header-height;
+    background-color: $header-background-color;
+    position:absolute;
+    color: white;
+
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding-left: $header-left-right-pad;
+    padding-right: $header-left-right-pad;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.rightText { text-align: right;}
+

@@ -5,6 +5,7 @@ import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import { IRenderFunction, StackItem, IStyleFunction, TextField } from '@fluentui/react';
+import {Dialog, DialogType, DialogFooter} from 'office-ui-fabric-react/lib/Dialog'
 import { Stack } from '@fluentui/react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { getTheme } from '@fluentui/react/lib/Styling';
@@ -53,7 +54,7 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           maxWidth: 16,
 //          onColumnClick: this._onColumnClick,
           onRender: (item: ICost) => (
-            <Checkbox />
+            <Checkbox key={item.p15_costsid} id={item.p15_costsid} onChange={this.onCostSelected} />
           ),
         },
         {
@@ -62,7 +63,7 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           fieldName: 'p15_companyid_name',
           minWidth: 50,
           maxWidth: 200,
-          isRowHeader: true,
+          isRowHeader: false,
           isResizable: true,
           isSorted: true,
           isSortedDescending: false,
@@ -89,9 +90,9 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           isPadded: true,
         },
         {
-          key: 'p15_VendorRatePlanIdName',
+          key: 'p15_vendorrateplanid_name',
           name: 'Rate Plan',
-          fieldName: 'p15_VendorRatePlanIdName',
+          fieldName: 'p15_vendorrateplanid_name',
           minWidth: 70,
           maxWidth: 90,
           isResizable: true,
@@ -106,9 +107,9 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           isPadded: true,
         },
         {
-          key: 'p15_companyidName',
+          key: 'p15_companyid_name2',
           name: 'Pay To',
-          fieldName: 'p15_companyidName',
+          fieldName: 'p15_companyid_name',
           minWidth: 70,
           maxWidth: 90,
           isResizable: true,
@@ -121,6 +122,26 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           },
 */          
         },
+        {
+          key: 'PerPersonCost',
+          name: 'Rate',
+          fieldName: 'ScenarioCost.PerPersonCost',
+          minWidth: 70,
+          maxWidth: 90,
+          isResizable: true,
+          isCollapsible: true,
+          data: 'number',
+          onRender: (item: ICost) => {
+            return <span>{item.ScenarioCost.PerPersonCostFormatted}</span>;
+          },
+
+//          onColumnClick: this._onColumnClick,
+/*
+          onRender: (item: IDocument) => {
+            return <span>{item.fileSize}</span>;
+          },
+*/          
+        },        
       ];
 
     // This method is called when the component is first added to the document
@@ -140,7 +161,18 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
 
         if (this._orgId && this._vendorId && this._departureId && (!this.props.vendor))
             this.props.requestCompany(this._orgId, this._vendorId, this._departureId);
+    }
 
+    private onButtonClick(buttonKey: string) {
+    };
+
+   private onCostSelected = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean):
+    void =>
+   {
+    let costId = ev?.currentTarget.id;
+
+     if (ev?.currentTarget)
+      this.props.costSelectChange(ev?.currentTarget.id, checked);
     }
 
     private _getKey(item: any, index?: number): string {
@@ -157,23 +189,27 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
         else return null;
       }
 
-       private _onRenderRow: IDetailsListProps['onRenderRow'] = props => {
-        const customStyles: Partial<IDetailsRowStyles> = {};
-        if (props) {
-          if (props.itemIndex % 2 === 0) {
-            // Every other row renders with a different background color
-            customStyles.root = { backgroundColor: theme.palette.themeLighterAlt, height: '32px' };
-          } else {
-            customStyles.root = { height: '32px' };
-          }
-
-    
-          return <DetailsRow {...props} styles={customStyles} />;
+    private _onRenderRow: IDetailsListProps['onRenderRow'] = props => {
+      const customStyles: Partial<IDetailsRowStyles> = {};
+      if (props) {
+        if (props.itemIndex % 2 === 0) {
+          // Every other row renders with a different background color
+          customStyles.root = { backgroundColor: theme.palette.themeLighterAlt, height: '32px' };
+        } else {
+          customStyles.root = { height: '32px' };
         }
-        return null;
-      };
+
+  
+        return <DetailsRow {...props} styles={customStyles} />;
+      }
+      return null;
+    };
 
     public render() {
+        if (this.props.vendor && this.props.vendor.Departure && this.props.vendor.Departure.Costs) {
+          let x = this.props.vendor.Departure.Costs[0].ScenarioCost.NumberOfPeople;
+        }
+
         if (this.props.vendor && this.props.vendor.Departure && this.props.vendor.Departure.Costs)
             return (
                 <React.Fragment>
@@ -201,7 +237,7 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
                             />
                   
                     </Stack>
-                    <CommandFooter ButtonCount={'3'}></CommandFooter>
+                    <CommandFooter onButtonClick={this.onButtonClick} selectedCount={this.props.costsSelected.length}></CommandFooter>
                 </React.Fragment>
             );
         else

@@ -1,0 +1,57 @@
+@import '../styles/Styles.variables.scss';
+
+body {
+    position: relative;
+  }
+  
+  body::after {
+    content: '';
+    display: block;
+    height: 50px; /* Set same as footer's height */
+  }
+
+.commandFooter {
+    height: $commandFooter-height;
+    background-color: $commandFooter-background-color;
+    position:absolute;
+    color: $commandFooter-text-color;
+
+    width: 100%;
+    bottom: 0;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.09);
+    padding-left: $commandFooter-left-right-pad;
+    padding-right: $commandFooter-left-right-pad;
+
+    Button
+     { 
+         height: $defaultButton-height; 
+         width: $defaultButton-width; 
+         border-radius: $defaultButton-radius; }
+
+    .selectedCount {
+        font-weight: $selectedCount-font-weight;
+        color: $selectedCount-font-color;
+    }
+
+    .declineButton 
+    {
+        border-color: $declineButton-border-color;
+        color: $declineButton-text-color;
+    }
+
+
+    .modifyButton 
+    {
+        border-color: $modifyButton-border-color;
+        color: $modifyButton-text-color;
+        margin-right: 40px;
+    }
+
+    .rightText { text-align: right; }
+}
+
+
+
+

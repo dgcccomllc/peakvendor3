@@ -1,0 +1,36 @@
+$font-family: 'Segoe UI';
+
+$header-height: 28px !default;
+$header-background-color: #178239 !default;
+$header-text-color: #ffffff !default;
+$header-left-right-pad: 16px !default;
+$header-font-size: 16px;
+
+
+$commandFooter-height: 64px !default;
+$commandFooter-background-color: #ffffff !default;
+$commandFooter-text-color: #000000 !default;
+$commandFooter-left-right-pad: 16px !default;
+$commandFooter-font-size: 16px;
+
+$declineButton-text-color: #C72828 !default;
+$declineButton-border-color: #C72828 !default;
+
+$modifyButton-text-color: #202020 !default;
+$modifyButton-border-color: #202020 !default;
+
+$defaultButton-height: 42px !default;
+$defaultButton-width: 103px !default;
+$defaultButton-radius: 4px !default;
+
+$selectedCount-font-weight: 600 !default;
+$selectedCount-font-color: #757575 !default;
+
+$content-height: 100vh;
+$content-top: $header-height + 1;
+$content-margin-bottom: $commandFooter-height - 1;
+
+$companyDetailsContainerHeight: 178px;
+$companyDetailsContainerWidth: 935px;
+
+$activeLinkColor: #00AEFF;

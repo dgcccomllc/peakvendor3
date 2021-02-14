@@ -1,0 +1,33 @@
+export interface ITrip {
+    statecode: number;
+    statecode_desc: string;
+    p15_triptypestotripsid: string;
+    p15_triptypestotripsid_name: string;
+    p15_displayonweb: string;
+    createdon: string;
+    p15_tripname: string;
+    ownerid: string;
+    ownerid_name: string;
+    modifiedon: string;
+    p15_tripcode: string;
+    p15_overridetripduration: string;
+    p15_multipledepartures: string;
+    statuscode: number;
+    statuscode_desc: string;
+    modifiedby: string;
+    modifiedby_name: string;
+    modifiedonbehalfby: string;
+    modifiedonbehalfby_name: string;
+    createdby: string;
+    createdby_name: string;
+    createdonbehalfby: string;
+    createdonbehalfby_name: string;
+    p15_primarydestinationid: string;
+    p15_primarydestinationid_name: string;
+    owningbusinessunit: string;
+    owningbusinessunit_name?: null;
+    p15_tripsid: string;
+    p15_availableasatemplate: string;
+    owninguser: string;
+    owninguser_name?: null;
+}
