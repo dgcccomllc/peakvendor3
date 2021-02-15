@@ -18,6 +18,8 @@ export interface VendorState {
     orgId: string;
     error: string;
     costsSelected: string[];
+    showReviewCosts: boolean;
+    selectedReviewType: string;
 }
 
 // -----------------
@@ -46,15 +48,22 @@ interface CostSelectChange {
     checked: boolean;
 }
 
+interface ReviewCosts {
+    type: 'REVIEW_COSTS',
+    selectedType: string,
+    isOpen: boolean
+}
+
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
-type KnownAction = RequestVendorAction | ReceiveVendorAction | CostSelectChange ;
+type KnownAction = RequestVendorAction | ReceiveVendorAction | CostSelectChange | ReviewCosts ;
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
 // They don't directly mutate state, but they can have external side-effects (such as loading data).
 
 export const actionCreators = {
+    reviewCosts: (selectedType: string, showDialog: boolean) => ({ type: 'REVIEW_COSTS', selectedType: selectedType, isOpen: showDialog } as ReviewCosts),
     costSelectChange: (costId: string, isChecked?: boolean) => ({ type: 'SELECT_COST', costId: costId, checked: isChecked } as CostSelectChange),
     requestCompany: (orgId: string, companyId: string, departureId: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         if (companyId && orgId && departureId) {
@@ -87,7 +96,19 @@ export const actionCreators = {
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state. To support time travel, this must not mutate the old state.
-const unloadedState: VendorState = { isLoading: false, orgId: '', isValid: false, error: '', companyId: '', departureId: '', vendor: undefined, costsSelected: [] };
+const unloadedState: VendorState = 
+    { 
+        isLoading: false, 
+        orgId: '', 
+        isValid: false, 
+        error: '', 
+        companyId: '', 
+        departureId: '', 
+        vendor: undefined, 
+        showReviewCosts: false,
+        selectedReviewType: '',
+        costsSelected: [] 
+    };
 
 export const reducer: Reducer<VendorState> = (state: VendorState | undefined, incomingAction: Action): VendorState => {
     if (state === undefined) {
@@ -97,6 +118,12 @@ export const reducer: Reducer<VendorState> = (state: VendorState | undefined, in
     const action = incomingAction as KnownAction;
 
     switch (action.type) {
+        case 'REVIEW_COSTS':
+            return {
+                ...state,
+                showReviewCosts: action.isOpen,
+                selectedReviewType: action.selectedType,
+            }
 
         case 'SELECT_COST':
             return {

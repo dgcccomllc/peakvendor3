@@ -2,10 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import { IRenderFunction, StackItem, IStyleFunction, TextField } from '@fluentui/react';
-import {Dialog, DialogType, DialogFooter} from 'office-ui-fabric-react/lib/Dialog'
 import { Stack } from '@fluentui/react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { getTheme } from '@fluentui/react/lib/Styling';
@@ -30,6 +28,7 @@ import * as VendorRequestStore from '../../store/vendorRequestView';
 import CommandFooter from '../controls/CommandFooter';
 import CompanyDetails from '../company/CompanyDetails';
 import VendorHeader from './VendorHeader';
+import VendorResponseDialog from './VendorResponseDialog'
 
 import styles from "./VendorRequestView.module.scss";
 import { ICost } from '../../models/costModel';
@@ -163,11 +162,20 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
             this.props.requestCompany(this._orgId, this._vendorId, this._departureId);
     }
 
-    private onButtonClick(buttonKey: string) {
+    private onButtonClick = (buttonKey: string): void => 
+    {
+      this.props.reviewCosts(buttonKey, true);
     };
 
-   private onCostSelected = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean):
-    void =>
+    private onCostReviewClosed = (): void => {
+      this.props.reviewCosts('', false);
+    }
+
+    private onCostReviewSubmitted = (commandKey: string) : void => {
+      alert(commandKey);
+    }
+
+   private onCostSelected = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean): void =>
    {
     let costId = ev?.currentTarget.id;
 
@@ -205,12 +213,25 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
       return null;
     };
 
-    public render() {
-        if (this.props.vendor && this.props.vendor.Departure && this.props.vendor.Departure.Costs) {
-          let x = this.props.vendor.Departure.Costs[0].ScenarioCost.NumberOfPeople;
-        }
+    public renderDialog() {
+      if(this.props.vendor?.Departure.Costs) {
+        return (
+          <VendorResponseDialog
+            isOpen={this.props.showReviewCosts}
+            costIds={this.props.costsSelected}
+            costs={this.props.vendor?.Departure.Costs}
+            defaultButtonKey={this.props.selectedReviewType}
+            onClose={this.onCostReviewClosed}
+            onCommandClicked={this.onCostReviewSubmitted}
+          ></VendorResponseDialog>
+        );
+      } else {
+        return null;
+      }
+    }
 
-        if (this.props.vendor && this.props.vendor.Departure && this.props.vendor.Departure.Costs)
+    public render() {
+      if (this.props.vendor && this.props.vendor.Departure && this.props.vendor.Departure.Costs)
             return (
                 <React.Fragment>
                     <VendorHeader Company={this.props.vendor?.Vendor} DepartureName={this.props.vendor.Departure.p15_name}></VendorHeader>
@@ -221,23 +242,24 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
                             <span>Please review the requested reservations to confirm availability, rates and payment terms.</span>
                         </StackItem>
 
-
-                            <DetailsList className={styles.vendorCostSelect}
-                                items={this.props.vendor.Departure.Costs}
-                                compact={true}
-                                columns={this._columns}
-                                selectionMode={SelectionMode.none}
-                                getKey={this._getKey}
-                                setKey="none"
-                                layoutMode={DetailsListLayoutMode.justified}
-                                isHeaderVisible={true}
-                                onRenderDetailsHeader={this._onRenderDetailsHeader}
-                                onRenderRow={this._onRenderRow}
-    //                            onItemInvoked={this._onItemInvoked}
-                            />
+                        <DetailsList className={styles.vendorCostSelect}
+                            items={this.props.vendor.Departure.Costs}
+                            compact={true}
+                            columns={this._columns}
+                            selectionMode={SelectionMode.none}
+                            getKey={this._getKey}
+                            setKey="none"
+                            layoutMode={DetailsListLayoutMode.justified}
+                            isHeaderVisible={true}
+                            onRenderDetailsHeader={this._onRenderDetailsHeader}
+                            onRenderRow={this._onRenderRow}
+//                            onItemInvoked={this._onItemInvoked}
+                        />
                   
                     </Stack>
                     <CommandFooter onButtonClick={this.onButtonClick} selectedCount={this.props.costsSelected.length}></CommandFooter>
+
+                    {this.renderDialog()}
                 </React.Fragment>
             );
         else
@@ -251,4 +273,3 @@ export default connect(
     (state: ApplicationState) => state.vendorRequestView, // Selects which state properties are merged into the component's props
     VendorRequestStore.actionCreators // Selects which action creators are merged into the component's props
 )(VendorRequestView as any);
-

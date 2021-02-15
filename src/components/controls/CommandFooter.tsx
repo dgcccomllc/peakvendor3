@@ -3,15 +3,16 @@ import { Stack } from "@fluentui/react/lib/Stack";
 import { PrimaryButton, DefaultButton } from "@fluentui/react/lib/Button";
 
 import styles from "./CommandFooter.module.scss";
+import { NamedTupleMember } from 'typescript';
 
 interface ICommandFooterProps {
     onButtonClick: (buttonKey: string) => void;
     selectedCount: number;
+    footerMessage?: string;
+    primaryButton?: string;
 }
 
-
-
-const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedCount }) => {
+const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedCount, footerMessage, primaryButton }) => {
         return (
             <>
             <Stack
@@ -21,28 +22,60 @@ const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedC
                 verticalAlign="center"
             >
                 <span>
-                    <DefaultButton 
-                        className={styles.declineButton} 
-                        text="Decline" 
-                        disabled={selectedCount == 0 ? true : false}
-                        onClick={e => onButtonClick('keyDecline')}>
-                    </DefaultButton>
+                    {primaryButton == 'keyDecline' ?
+                        <PrimaryButton 
+                            className={styles.declineButton} 
+                            text="Decline" 
+                            disabled={selectedCount == 0 ? true : false}
+                            onClick={e => onButtonClick('keyDecline')}>
+                        </PrimaryButton>
+                        :
+                        <DefaultButton 
+                            className={styles.declineButton} 
+                            text="Decline" 
+                            disabled={selectedCount == 0 ? true : false}
+                            onClick={e => onButtonClick('keyDecline')}>
+                        </DefaultButton>
+                    }
                 </span>
                 
-                <span className={styles.selectedCount}>Selected: {selectedCount}</span>
+                <span className={styles.selectedCount}>{footerMessage?.length == 0 ? 'Selected: ${selectedCount}' : footerMessage}</span>
                 
                 <span className={styles.rightText}>
-                    <DefaultButton 
-                        className={styles.modifyButton} 
-                        disabled={selectedCount == 0 ? true : false}
-                        text="Modify" 
-                        onClick={e => onButtonClick('keyModify')}>
-                    </DefaultButton>
-                    <PrimaryButton 
-                        text="Default" 
-                        disabled={selectedCount == 0 ? true : false}
-                        onClick={e => onButtonClick('keyConfirm')}>
-                    </PrimaryButton>
+                    {primaryButton == 'keyModify' ?
+                        <PrimaryButton 
+                            className={styles.modifyButton} 
+                            disabled={selectedCount == 0 ? true : false}
+                            text="Modify" 
+                            onClick={e => onButtonClick('keyModify')}>
+                        </PrimaryButton>
+
+                        :
+
+                        <DefaultButton 
+                            className={styles.modifyButton} 
+                            disabled={selectedCount == 0 ? true : false}
+                            text="Modify" 
+                            onClick={e => onButtonClick('keyModify')}>
+                        </DefaultButton>
+                    }
+
+                    {primaryButton == 'keyConfirm' || primaryButton == undefined ?
+                        <PrimaryButton 
+                            text="Confirm" 
+                            disabled={selectedCount == 0 ? true : false}
+                            onClick={e => onButtonClick('keyConfirm')}>
+                        </PrimaryButton>
+
+                        :
+
+                        <DefaultButton
+                            text="Confirm" 
+                            disabled={selectedCount == 0 ? true : false}
+                            onClick={e => onButtonClick('keyConfirm')}>
+                        </DefaultButton>
+                        
+                    }   
                 </span>
             </Stack>
             </>
