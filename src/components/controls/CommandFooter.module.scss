@@ -41,6 +41,22 @@ body {
         color: $declineButton-text-color;
     }
 
+    .declineButtonPrimary {
+        background-color: $declineButton-border-color;
+        border-color: $declineButton-border-color;
+        color: white;
+    }
+
+    .confirmButton {
+        border-color: $confirmButton-border-color;
+        color: $confirmButton-text_color
+    }
+
+    .confirmButtonPrimary {
+        background-color: $confirmButton-border-color;
+        border-color: $confirmButton-border-color;
+        color: white;
+    }
 
     .modifyButton 
     {
@@ -49,9 +65,13 @@ body {
         margin-right: 40px;
     }
 
+    .modifyButtonPrimary {
+        background-color: $modifyButton-border-color;
+        border-color: $modifyButton-border-color;
+        color: white;
+        margin-right: 40px;
+    }
+
+
     .rightText { text-align: right; }
 }
-
-
-
-

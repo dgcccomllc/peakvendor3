@@ -67,7 +67,58 @@ export interface IScenarioDetail {
     p15_costrateid_name?: string | null;
 }
 
-export interface IScenarioCost {
+export interface ICalcCosts {
+    StartDay: number;
+    DisplayDay: number;
+    DisplayDayFormatted: string;
+    StartTime: string;
+    StartTimeForSort: string;
+    StartDate: string;
+    CompanyId: string;
+    CostCategoryId: string;
+    GroupSizeFrom: number;
+    CurrencySymbol: string;
+    CurrencyPrecision: number;
+    RetailRate?: null;
+    PctOffRetail?: null;
+    TotalSellingAmount: number;
+    Status: string;
+    Comments?: null;
+    CostId: string;
+    CostRateId: string;
+    Name: string;
+    RateType: number;
+    RateTypeGuestType: string;
+    BaseCurrencySymbol: string;
+    Amount: number;
+    AmountFormatted: string;
+    ExchangeRate: number;
+    ExchangeRateFormatted: string;
+    Unit: number;
+    DurationType: number;
+    UnitDurationType: string;
+    DaysNights: number;
+    Duration: number;
+    Units: number;
+    Margin: number;
+    CalcSellingAmount: number;
+    CalcSellingAmountFormatted: string;
+    AdjSellingAmount?: null;
+    AdjSellingAmountFormatted: string;
+    RetailRateAmountFormatted: string;
+    TotalCostAmount: number;
+    TotalCostAmountFormatted: string;
+    TotalSellingAmountFormatted: string;
+    TotalMargin: number;
+    TotalMarginFormatted: string;
+    SubItemType: number;
+    OperationalComments?: null;
+    LeaderScenarioDetail?: null;
+    Percentage?: null;
+    PriceScenarioDetails: (IPriceScenarioDetails)[];
+  }
+
+export interface IPriceScenarioDetails {
     costId: string;
     ScenarioId: string;
     ScenarioDetailId: string;

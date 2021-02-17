@@ -136,19 +136,22 @@ class CostView extends React.PureComponent<CostProps> {
                 <button type="button"
                     disabled={this.props.isLoading || !this.props.isValid || !hasConfirmation}
                     className="btn btn-primary btn-lg ml-2"
-                    onClick={() => { this.props.changeStatus(this._orgId, '6'); }}>
+                 //   onClick={() => { this.props.changeStatus('', this._orgId, '6'); }}
+                 >
                     Confirm
                 </button>
                 <button type="button"
                     disabled={this.props.isLoading || !this.props.isValid || !hasConfirmation || !hasNote}
                     className="btn btn-primary btn-lg ml-2"
-                    onClick={() => { this.props.changeStatus(this._orgId, '7'); }}>
+                 //   onClick={() => { this.props.changeStatus('', this._orgId, '7'); }}
+                 >
                     Decline
                 </button>
                 <button type="button"
                     disabled={this.props.isLoading || !this.props.isValid  || !hasConfirmation || !hasNote}
                     className="btn btn-primary btn-lg ml-2"
-                    onClick={() => { this.props.changeStatus(this._orgId, '100000001'); }}>
+               //     onClick={() => { this.props.changeStatus('', this._orgId, '100000001'); }}
+               >
                     Modify
                 </button>
 

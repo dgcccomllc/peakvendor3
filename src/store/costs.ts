@@ -65,8 +65,6 @@ export const actionCreators = {
         if (costId && orgId) {
             const appState = getState();
 
-            let i = 0;
-
             if (appState && appState.cost && costId !== appState.cost.costId) {
                 let token = await(await P15Auth.requestJWT(_appName, orgId));
 
@@ -91,7 +89,7 @@ export const actionCreators = {
         }
     },
 
-    changeStatus: (orgId: string, statusCode: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+    changeStatus: (costId: string, orgId: string, statusCode: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         const appState = getState();
         if (appState && appState.cost) {
             if (appState.cost.costId) {

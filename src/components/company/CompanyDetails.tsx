@@ -4,7 +4,8 @@ import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import * as CompanyModel from '../../models/companyModel';
 
 import styles from "./CompanyDetails.module.scss";
-import CompanyLogo from './test.svg';
+
+import CompanyLogo from '../styles/travellogo.png'
 
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 
@@ -32,7 +33,7 @@ const CompanyDetails: React.FC<ICompanyDetailProps> = ({ Company, DepartureName 
                 verticalAlign="start"
             >
                 <StackItem className={styles.companyDetailsContainerImage}>
-                    <img src={CompanyLogo}></img>
+                    <img style={{width: "150px", height: "150px", backgroundColor: "transparent"}} src={CompanyLogo}></img>
                 </StackItem>
                 <StackItem className={styles.companyDetailsInfo}>
                     <Stack>

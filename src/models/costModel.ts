@@ -1,7 +1,7 @@
 import {ITripDeparture} from './tripDepartureModel';
 import {ICompany} from './companyModel';
 import {IVendorService} from './vendorServiceModel';
-import {IScenarioCost} from './scenarioModel';
+import {ICalcCosts} from './scenarioModel';
 
 export interface ICost {
     p15_itineraryfinal: string;
@@ -27,11 +27,14 @@ export interface ICost {
     owninguser_name?: null;
     p15_commissionable: number;
     p15_commissionable_desc: string;
+    p15_days?: number;
+    p15_attachedimage: string;
     p15_destinationid: string;
     p15_destinationid_name: string;
     ownerid: string;
     ownerid_name: string;
     p15_mealsbreakfast: string;
+    p15_starttime: string;
     createdon: string;
     p15_reservationamountmethod: number;
     p15_reservationamountmethod_desc: string;
@@ -97,5 +100,5 @@ export interface ICost {
     Company: ICompany;
     Vendor: IVendorService;
     costStatusNote: string;
-    ScenarioCost: IScenarioCost;
+    CalcCosts: ICalcCosts;
 }

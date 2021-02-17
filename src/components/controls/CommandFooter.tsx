@@ -24,7 +24,7 @@ const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedC
                 <span>
                     {primaryButton == 'keyDecline' ?
                         <PrimaryButton 
-                            className={styles.declineButton} 
+                            className={styles.declineButtonPrimary} 
                             text="Decline" 
                             disabled={selectedCount == 0 ? true : false}
                             onClick={e => onButtonClick('keyDecline')}>
@@ -39,12 +39,12 @@ const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedC
                     }
                 </span>
                 
-                <span className={styles.selectedCount}>{footerMessage?.length == 0 ? 'Selected: ${selectedCount}' : footerMessage}</span>
+                <span className={styles.selectedCount}>{footerMessage == undefined || footerMessage.length == 0 ? 'Selected: ' + selectedCount.toString() : footerMessage}</span>
                 
                 <span className={styles.rightText}>
                     {primaryButton == 'keyModify' ?
                         <PrimaryButton 
-                            className={styles.modifyButton} 
+                            className={styles.modifyButtonPrimary} 
                             disabled={selectedCount == 0 ? true : false}
                             text="Modify" 
                             onClick={e => onButtonClick('keyModify')}>
@@ -62,6 +62,7 @@ const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedC
 
                     {primaryButton == 'keyConfirm' || primaryButton == undefined ?
                         <PrimaryButton 
+                            className={styles.confirmButtonPrimary}
                             text="Confirm" 
                             disabled={selectedCount == 0 ? true : false}
                             onClick={e => onButtonClick('keyConfirm')}>
@@ -70,6 +71,7 @@ const CommandFooter: React.FC<ICommandFooterProps> = ({ onButtonClick, selectedC
                         :
 
                         <DefaultButton
+                            className={styles.confirmButton}
                             text="Confirm" 
                             disabled={selectedCount == 0 ? true : false}
                             onClick={e => onButtonClick('keyConfirm')}>
