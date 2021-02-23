@@ -130,7 +130,7 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           key: 'keyPerPersonCost',
           name: 'Rate',
           fieldName: 'CalcCosts.PriceScenarioDetails[0].PerPersonCostFormatted',
-          minWidth: 30,
+          minWidth: 60,
           maxWidth: 60,
           isResizable: true,
           isCollapsible: true,
@@ -145,7 +145,7 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
           key: 'keyQuantity',
           name: 'Quantity',
           fieldName: 'CalcCosts.Units',
-          minWidth: 70,
+          minWidth: 160,
           maxWidth: 160,
           isResizable: true,
           isCollapsible: true,
@@ -222,7 +222,8 @@ class VendorRequestView extends React.PureComponent<VendorRequestProps> {
 
     // This method is called when the route parameters change
     public componentDidUpdate() {
-        this.ensureDataFetched();
+      document.title = "ABC Travel Vendor Response System";
+      this.ensureDataFetched();
     }
 
     private ensureDataFetched() {

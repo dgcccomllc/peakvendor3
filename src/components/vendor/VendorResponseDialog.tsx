@@ -188,7 +188,7 @@ const VendorResponseDialog: React.FC<IResponseDialogProps> = ({ isOpen, costIds,
 
 
                                   <div className={contentStyles.contentRow}>
-                                    <span>Days</span>
+                                    <span>{currentCost.p15_durationtype_desc ? currentCost.p15_durationtype_desc.replace('Per','') : 'Day'}s</span>
                                     <div className={contentStyles.responseItem} >{currentCost.CalcCosts.Duration}</div>
                                   </div>
 
